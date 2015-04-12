@@ -245,14 +245,14 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
      *
      * @param string   $class        The class to read the constraints from
      * @param string   $property     The property for which to find constraints
-     * @param \Closure $closure      The closure that returns a guess
+     * @param callable $callback     The callback that returns a guess
      *                               for a given constraint
      * @param mixed    $defaultValue The default value assumed if no other value
      *                               can be guessed.
      *
      * @return Guess|null The guessed value with the highest confidence
      */
-    protected function guess($class, $property, \Closure $closure, $defaultValue = null)
+    protected function guess($class, $property, callable $callback, $defaultValue = null)
     {
         $guesses = array();
         $classMetadata = $this->metadataFactory->getMetadataFor($class);
@@ -264,7 +264,7 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
                 $constraints = $memberMetadata->getConstraints();
 
                 foreach ($constraints as $constraint) {
-                    if ($guess = $closure($constraint)) {
+                    if ($guess = $callback($constraint)) {
                         $guesses[] = $guess;
                     }
                 }

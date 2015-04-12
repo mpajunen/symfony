@@ -81,20 +81,20 @@ class FormTypeGuesserChain implements FormTypeGuesserInterface
     }
 
     /**
-     * Executes a closure for each guesser and returns the best guess from the
+     * Executes a callback for each guesser and returns the best guess from the
      * return values.
      *
-     * @param \Closure $closure The closure to execute. Accepts a guesser
-     *                          as argument and should return a Guess instance
+     * @param callable $callback The callback to execute. Accepts a guesser
+     *                           as argument and should return a Guess instance
      *
      * @return Guess|null The guess with the highest confidence
      */
-    private function guess(\Closure $closure)
+    private function guess(callable $callback)
     {
         $guesses = array();
 
         foreach ($this->guessers as $guesser) {
-            if ($guess = $closure($guesser)) {
+            if ($guess = $callback($guesser)) {
                 $guesses[] = $guess;
             }
         }

@@ -32,7 +32,7 @@ class Command
     private $labels = array();
 
     /**
-     * @var \Closure|null
+     * @var callable|null
      */
     private $errorHandler;
 
@@ -218,11 +218,11 @@ class Command
     }
 
     /**
-     * @param \Closure $errorHandler
+     * @param callable $errorHandler
      *
      * @return Command
      */
-    public function setErrorHandler(\Closure $errorHandler)
+    public function setErrorHandler(callable $errorHandler)
     {
         $this->errorHandler = $errorHandler;
 
@@ -230,7 +230,7 @@ class Command
     }
 
     /**
-     * @return \Closure|null
+     * @return callable|null
      */
     public function getErrorHandler()
     {
